@@ -1,5 +1,5 @@
 # pipeline version That should be used 
-version:2.1
+version : 2.1
 # sets of rules used by circle ci To setup The pipeline
 orbs:
     node:circleci/node@5.0.0
