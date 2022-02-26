@@ -11,7 +11,7 @@ jobs:
   build:
     docker:
         # the image That we are using To build our project sufficient for all the taks we need 
-        - image: 'cimg/node:16.13.2'
+        - image: 'cimg/base:stable'
     steps:
       #install nodejs
       - node/install
