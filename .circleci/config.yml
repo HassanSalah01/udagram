@@ -29,18 +29,22 @@ jobs:
                 command : |
                   npm run backend:install
             #start building The frontend 
+            - run:
                 name : building the frontend
                 command : |
                   npm run frontend:build
             #start building the backend
+            - run:
                 name : building the backend
                 command : |
                   npm run backend:build
             #start deploying The frontend
+            - run:
                 name : deploying the fronend
                 command : |
                   npm run frontend:deploy
             #start deploying The backend
+            - run:
                 name : deploying the backend
                 command : |
                   npm run backend:deploy
