@@ -21,23 +21,29 @@ jobs:
             #start installing The frontend dependencies 
             - run:
                 name : installing the frontend dependencies
-                command : npm run frontend:install
+                command : |
+                  npm run frontend:install
             #start installing The backend dependencies     
             - run:
                 name : installing the backend dependencies
-                command : npm run backend:install
+                command : |
+                  npm run backend:install
             #start building The frontend 
                 name : building the frontend
-                command : npm run frontend:build
+                command : |
+                  npm run frontend:build
             #start building the backend
                 name : building the backend
-                command : npm run backend:build
+                command : |
+                  npm run backend:build
             #start deploying The frontend
                 name : deploying the fronend
-                command : npm run frontend:deploy
+                command : |
+                  npm run frontend:deploy
             #start deploying The backend
                 name : deploying the backend
-                command : npm run backend:deploy
+                command : |
+                  npm run backend:deploy
 #the order of jobs applied
 workflows:
   main:
