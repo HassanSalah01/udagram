@@ -5,52 +5,53 @@ orbs:
     node:circleci/node@5.0.0
     aws-cli:circleci/aws-cli@2.0.6
     eb:circleci/aws-elastic-beanstalk@2.0.1
+
 # commands That we want to run from our scripts to automate the tasks
 jobs:
-    build:
-        docker:
-            # the image That we are using To build our project sufficient for all the taks we need 
-            - image:'cimg/base:stable'
-        steps:
-            #install nodejs
-            - node/install
-            - checkout
-            - aws-cli/setup
-            - eb/setup
-            #running the specific tasks
-            #start installing The frontend dependencies 
-            - run:
-                name : installing the frontend dependencies
-                command : |
-                  npm run frontend:install
-            #start installing The backend dependencies     
-            - run:
-                name : installing the backend dependencies
-                command : |
-                  npm run backend:install
-            #start building The frontend 
-            - run:
-                name : building the frontend
-                command : |
-                  npm run frontend:build
-            #start building the backend
-            - run:
-                name : building the backend
-                command : |
-                  npm run backend:build
+  build:
+    docker:
+        # the image That we are using To build our project sufficient for all the taks we need 
+      - image:'cimg/base:stable'
+    steps:
+      #install nodejs
+      - node/install
+      - checkout
+      - aws-cli/setup
+      - eb/setup
+      #running the specific tasks
+      #start installing The frontend dependencies 
+      - run:
+          name : installing the frontend dependencies
+          command : |
+              npm run frontend:install
+      #start installing The backend dependencies     
+      - run:
+            name : installing the backend dependencies
+            command : |
+              npm run backend:install
+      #start building The frontend 
+      - run:
+            name : building the frontend
+            command : |
+              npm run frontend:build
+      #start building the backend
+      - run:
+            name : building the backend
+            command : |
+              npm run backend:build
             #start deploying The frontend
-            - run:
-                name : deploying the fronend
-                command : |
-                  npm run frontend:deploy
+      - run:
+            name : deploying the frontend
+            command : |
+              npm run frontend:deploy
             #start deploying The backend
-            - run:
-                name : deploying the backend
-                command : |
-                  npm run backend:deploy
+      - run:
+            name : deploying the backend
+            command : |
+              npm run backend:deploy
 #the order of jobs applied
 workflows:
-  main:
+  Build-Deploy:
     jobs:
     - build:
         filters:
