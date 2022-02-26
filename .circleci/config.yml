@@ -22,13 +22,11 @@ jobs:
       #start installing The frontend dependencies 
       - run:
           name : installing the frontend dependencies
-          command : |
-              npm run frontend:install
+          command : npm run frontend:install
       #start installing The backend dependencies     
       - run:
             name : installing the backend dependencies
-            command : |
-              npm run backend:install
+            command : npm run backend:install
       #start building The frontend 
       - run:
             name : building the frontend
