@@ -2,16 +2,16 @@
 version : 2.1
 # sets of rules used by circle ci To setup The pipeline
 orbs:
-    node:circleci/node@5.0.0
-    aws-cli:circleci/aws-cli@2.0.6
-    eb:circleci/aws-elastic-beanstalk@2.0.1
+  node: circleci/node@5.0.0
+  aws-cli: circleci/aws-cli@2.0.6
+  eb: circleci/aws-elastic-beanstalk@2.0.1
 
 # commands That we want to run from our scripts to automate the tasks
 jobs:
   build:
     docker:
         # the image That we are using To build our project sufficient for all the taks we need 
-      - image:'cimg/base:stable'
+        - image: 'cimg/base:stable'
     steps:
       #install nodejs
       - node/install
