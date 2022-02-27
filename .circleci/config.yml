@@ -1,73 +1,61 @@
-
-version: 2.1
-
-
+# pipeline version That should be used 
+version : 2.1
+# sets of rules used by circle ci To setup The pipeline
 orbs:
   node: circleci/node@5.0.0
   aws-cli: circleci/aws-cli@2.0.6
   eb: circleci/aws-elastic-beanstalk@2.0.1
-  
 
+# commands That we want to run from our scripts to automate the tasks
 jobs:
   build:
     docker:
-      - image: 'cimg/base:stable'
+        # the image That we are using To build our project sufficient for all the taks we need 
+        - image: 'cimg/base:stable'
     steps:
-      - node/install
+      #install nodejs
+      - node/install:
+          node-version: '14.15.1'
       - checkout
       - aws-cli/setup
       - eb/setup
-      
-
-      - restore_cache:
-          keys:
-            - -v3-{{ checksum "udagram-frontend/package.json" }}
-            - -v3-      
+      #running the specific tasks
+      #start installing The frontend dependencies 
       - run:
-          name: Install frontend dependencies
+          name : installing the frontend dependencies
           command: npm run frontend:install
-      - save_cache:
-          key:  -v3-{{ checksum "udagram-frontend/package.json" }}   
-          paths: 
-            - udagram-frontend/node_modules            
-
-
-
-      - restore_cache:
-          keys:
-            - -v4-{{ checksum "udagram-api/package.json" }} 
-            - -v4-                     
+      #start installing The backend dependencies     
       - run:
-          name: Install backend dependencies
-          command: npm run backend:install
-      - save_cache:
-          key:  -v4-{{ checksum "udagram-api/package.json" }} 
-          paths: 
-            - udagram-api/node_modules 
-            
-            
-     
+            name : installing the backend dependencies
+            command : npm run backend:install
+      #start building The frontend 
       - run:
-          name: Building Front-End 
-          command: npm run frontend:build
+            name : building the frontend
+            command : |
+              npm run frontend:build
+      #start building the backend
       - run:
-          name: Building Back-End 
-          command: npm run backend:build            
+            name : building the backend
+            command : |
+              npm run backend:build
+            #start deploying The frontend
       - run:
-          name: Deploy frontend
-          command: |
-            npm run frontend:deploy
+            name : deploying the frontend
+            command : |
+              npm run frontend:deploy
+            #start deploying The backend
       - run:
-          name: Deploy backend
-          command: |
-            npm run backend:deploy
-            
-  
+            name : deploying the backend
+            command : |
+              npm run backend:deploy
+#the order of jobs applied
 workflows:
-  Build-Deploy:                  
+  Build-Deploy:
     jobs:
-      - build:  
-          filters:
-            branches:
-               only:                
-                  - main
+    - build:
+        filters:
+          branches:
+            only:
+              - main
+            
+
